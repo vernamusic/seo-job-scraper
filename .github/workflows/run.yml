@@ -1,32 +1,45 @@
 name: Job Search Bot 🤖
 
 on:
-  # هر روز ساعت ۷ صبح به وقت ایران (۰۳:۳۰ UTC)
   schedule:
-    - cron: "30 3 * * *"
+    - cron: "30 3 * * *"   # هر روز ساعت ۷ صبح ایران (۳:۳۰ UTC)
+  workflow_dispatch:         # اجرای دستی از تب Actions
 
-  # اجرای دستی از تب Actions گیت‌هاب
-  workflow_dispatch:
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # رفع اخطار Node.js
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: ⬇️ Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      # ─── بازیابی کش seen_jobs.txt از اجرای قبلی ──────────────────────────
+      - name: 📦 Restore seen jobs cache
+        uses: actions/cache@v4
+        with:
+          path: seen_jobs.txt
+          # کلید منحصربه‌فرد برای هر run — همیشه ذخیره میشه
+          key: seen-jobs-${{ github.run_id }}
+          # بازیابی از آخرین کش موجود
+          restore-keys: |
+            seen-jobs-
+
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
-        run: pip install requests
+      - name: 📦 Install dependencies
+        run: pip install requests gspread google-auth
 
-      - name: Run Job Search Bot
+      - name: 🤖 Run Job Search Bot
         env:
-          RAPIDAPI_KEY:       ${{ secrets.RAPIDAPI_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          RAPIDAPI_KEY:        ${{ secrets.RAPIDAPI_KEY }}
+          TELEGRAM_BOT_TOKEN:  ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:    ${{ secrets.TELEGRAM_CHAT_ID }}
+          GSHEET_CREDENTIALS:  ${{ secrets.GSHEET_CREDENTIALS }}
+          GSHEET_ID:           ${{ secrets.GSHEET_ID }}
         run: python bot.py
