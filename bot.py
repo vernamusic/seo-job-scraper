@@ -26,7 +26,6 @@ SEO Job Scraper Bot v4.1
   GSHEET_CREDENTIALS   — اختیاری (JSON سرویس اکانت)
   GSHEET_ID            — اختیاری
   CF_WORKER_URL        — اختیاری
-  CF_WORKER_SECRET     — اختیاری
   AI_PROVIDER          — اختیاری: gemini | openai | custom
   AI_API_KEY           — اختیاری: کلید API هوش مصنوعی
   AI_MODEL             — اختیاری: مدل (default: gemini-2.0-flash)
@@ -94,7 +93,6 @@ GSHEET_ID          = os.environ.get("GSHEET_ID", "")
 GSHEET_SHEET_NAME  = "Jobs"
 
 CF_WORKER_URL    = os.environ.get("CF_WORKER_URL", "")
-CF_WORKER_SECRET = os.environ.get("CF_WORKER_SECRET", "")
 
 # ── AI Config (اختیاری) ─────────────────────────────────────────────────────
 AI_PROVIDER = os.environ.get("AI_PROVIDER", "").lower()       # gemini | openai | tokenlb | custom
@@ -570,8 +568,6 @@ def fetch_cloudflare_worker() -> list:
     worker_url = _normalize_cf_worker_url(CF_WORKER_URL)
 
     headers = {"User-Agent": "SEOJobBot/4.1"}
-    if CF_WORKER_SECRET:
-        headers["X-Worker-Secret"] = CF_WORKER_SECRET
 
     try:
         resp = requests.get(worker_url, headers=headers, timeout=20)
