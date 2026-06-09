@@ -1,16 +1,18 @@
-# 🤖 ربات یابنده شغل سئو (SEO Job Scraper Bot)
+# 🤖 ربات یابنده شغل ریموت (Remote Job Scraper Bot)
 
-این ربات هر روز آگهی‌های شغلی ریموت و دورکاری سئو رو از سایت‌های مختلف پیدا می‌کنه و مستقیم به تلگرامت می‌فرسته.
+این ربات هر روز آگهی‌های شغلی ریموت و دورکاری رو از سایت‌های مختلف پیدا می‌کنه و مستقیم به تلگرامت می‌فرسته.
 
-خبر خوب اینه که **کاملاً رایگانه و هیچ نیازی به خرید سرور یا هاست نداری**. ربات روی GitHub Actions به صورت خودکار اجرا میشه.
+**کاملاً رایگانه و هیچ نیازی به خرید سرور یا هاست نداری.** ربات روی GitHub Actions به صورت خودکار اجرا میشه.
+
+> 💡 این ربات الان روی **SEO** تنظیم شده، ولی با چند تغییر ساده می‌تونی برای **هر فیلد شغلی** ازش استفاده کنی (توسعه‌دهنده، دیزاینر، مارکتینگ، دیتا، DevOps و...). [بخش سفارشی‌سازی](#-سفارشیسازی-برای-فیلدهای-شغلی-دیگه) رو ببین.
 
 ---
 
 ## ✨ چیکار می‌کنه؟
 
-- 🔍 هر روز از **۶+ سایت کاریابی** آگهی‌های SEO ریموت رو جمع می‌کنه
+- 🔍 هر روز از **۶+ سایت کاریابی** آگهی‌های ریموت رو جمع می‌کنه
 - 📊 آگهی‌ها رو **امتیازدهی** می‌کنه و فقط مرتبط‌ترین‌ها رو می‌فرسته
-- ⛔ آگهی‌های نامرتبط (سنیور، آژانس، محدود به آمریکا) رو **خودکار فیلتر** می‌کنه
+- ⛔ آگهی‌های نامرتبط رو **خودکار فیلتر** می‌کنه
 - 🧠 با **هوش مصنوعی** برای هر آگهی Cover Letter اختصاصی می‌نویسه (اختیاری)
 - ⏰ هر روز صبح **خودش اجرا میشه** — کاری نباید بکنی
 
@@ -80,9 +82,155 @@
 3. از منوی سمت چپ، روی **Job Search Bot** کلیک کن
 4. سمت راست، دکمه **Run workflow** رو بزن و بعد دکمه سبز رو بزن
 
-✅ **تمام!** بعد ۱-۲ دقیقه اولین آگهی‌های کاریابی سئو توی ربات تلگرامت میاد.
+✅ **تمام!** بعد ۱-۲ دقیقه اولین آگهی‌های کاریابی توی ربات تلگرامت میاد.
 
 از فردا، ربات **خودش هر روز صبح اتوماتیک** اجرا میشه.
+
+---
+
+## 🎯 سفارشی‌سازی برای فیلدهای شغلی دیگه
+
+این ربات الان روی SEO تنظیمه، ولی **فقط با تغییر ۴ بخش ساده** تو فایل `bot.py` می‌تونی برای هر فیلد شغلی ازش استفاده کنی.
+
+فایل `bot.py` رو باز کن و این بخش‌ها رو تغییر بده:
+
+---
+
+### ۱. عبارات جستجو (`JSEARCH_QUERIES`) — خط ~۱۲۲
+
+اینا عباراتی هستن که ربات باهاشون آگهی جستجو می‌کنه. به زبان انگلیسی بنویس:
+
+```python
+# نمونه SEO (پیش‌فرض):
+JSEARCH_QUERIES = {
+    1: ["Junior SEO remote", "Technical SEO remote", "SEO Python remote"],
+    2: ["SEO Content Editor remote", "WordPress SEO Specialist remote"],
+    3: ["on-page SEO specialist remote", "SEO copywriter remote"],
+}
+
+# نمونه Front-end Developer:
+JSEARCH_QUERIES = {
+    1: ["Junior Frontend Developer remote", "React Developer remote"],
+    2: ["Vue.js Developer remote", "JavaScript Developer remote"],
+    3: ["UI Developer remote", "Frontend Engineer remote"],
+}
+
+# نمونه Data Analyst:
+JSEARCH_QUERIES = {
+    1: ["Junior Data Analyst remote", "Data Analyst Python remote"],
+    2: ["Business Intelligence Analyst remote", "SQL Analyst remote"],
+    3: ["Data Visualization Analyst remote", "Excel Analyst remote"],
+}
+
+# نمونه Graphic Designer:
+JSEARCH_QUERIES = {
+    1: ["Graphic Designer remote", "UI Designer remote"],
+    2: ["Visual Designer remote", "Brand Designer remote"],
+    3: ["Figma Designer remote", "Creative Designer remote"],
+}
+```
+
+> 💡 **نکته:** عدد ۱ = اولویت بالا (هر روز اجرا میشه)، عدد ۳ = اولویت پایین (فقط روزهای زوج)
+
+---
+
+### ۲. مهارت‌های شما (`USER_SKILLS`) — آسون‌ترین راه!
+
+**بدون نیاز به تغییر کد!** فقط یه GitHub Secret اضافه کن:
+
+- اسم: `USER_SKILLS`
+- مقدار: مهارت‌هات رو comma-separated بنویس
+
+```
+# نمونه Front-end:
+react, javascript, typescript, css, html, tailwind, next.js, git, figma, responsive design
+
+# نمونه Data Analyst:
+python, sql, excel, power bi, tableau, pandas, statistics, data visualization
+
+# نمونه DevOps:
+docker, kubernetes, aws, terraform, ci/cd, linux, ansible, jenkins, monitoring
+
+# نمونه Graphic Designer:
+figma, photoshop, illustrator, after effects, branding, typography, ui design
+```
+
+اگه `USER_SKILLS` رو ست نکنی، ربات از مهارت‌های پیش‌فرض (SEO) استفاده می‌کنه.
+
+---
+
+### ۳. کلمات ممنوعه (`BLACKLIST_KEYWORDS`) — خط ~۱۴۲
+
+آگهی‌هایی که این کلمات رو دارن **حذف** میشن. بر اساس فیلد خودت تغییرش بده:
+
+```python
+# نمونه عمومی (برای همه فیلدها مناسبه):
+BLACKLIST_KEYWORDS = [
+    "us residents only", "must reside in us", "must be located in us",
+    "must be based in the us", "must be authorized to work in the us",
+    "native english speaker only",
+    "10+ years", "8+ years", "7+ years",
+    "senior", "lead", "staff", "principal", "director", "head of", "vp of",
+]
+
+# نمونه Junior Developer (فیلتر پوزیشن‌های سنیور):
+BLACKLIST_KEYWORDS = [
+    "us residents only", "must reside in us",
+    "must be authorized to work in the us",
+    "senior developer", "staff engineer", "principal engineer",
+    "lead developer", "architect", "director", "vp of",
+    "10+ years", "8+ years", "7+ years", "5+ years",
+]
+```
+
+---
+
+### ۴. کلمات تقویت‌کننده (`BOOST_KEYWORDS`) — خط ~۱۵۳
+
+آگهی‌هایی که این کلمات رو دارن **امتیاز بیشتر** می‌گیرن (عدد = امتیاز اضافه):
+
+```python
+# نمونه SEO (پیش‌فرض):
+BOOST_KEYWORDS = {
+    "technical seo": 20, "python": 18, "wordpress": 15,
+    "junior": 18, "entry level": 15, "associate": 12,
+    "seo specialist": 12, "seo editor": 12, "content editor": 10,
+    "on-page": 10, "part-time": 8, "contract": 5,
+    "remote-first": 8, "async": 5, "flexible": 4,
+}
+
+# نمونه Front-end Developer:
+BOOST_KEYWORDS = {
+    "react": 20, "next.js": 18, "typescript": 15,
+    "junior": 18, "entry level": 15, "associate": 12,
+    "frontend": 12, "front-end": 12, "ui developer": 10,
+    "tailwind": 10, "vue": 8, "part-time": 8, "contract": 5,
+    "remote-first": 8, "async": 5, "flexible": 4,
+}
+
+# نمونه Data Analyst:
+BOOST_KEYWORDS = {
+    "python": 20, "sql": 18, "power bi": 15, "tableau": 15,
+    "junior": 18, "entry level": 15, "associate": 12,
+    "data analyst": 12, "business intelligence": 10,
+    "excel": 8, "part-time": 8, "contract": 5,
+    "remote-first": 8, "async": 5, "flexible": 4,
+}
+```
+
+---
+
+### 🔄 خلاصه سریع
+
+| چی رو تغییر بدم؟ | کجا؟ | نیاز به تغییر کد؟ |
+|---|---|---|
+| مهارت‌ها | GitHub Secret → `USER_SKILLS` | ❌ نه |
+| عبارات جستجو | `bot.py` → `JSEARCH_QUERIES` | ✅ بله |
+| فیلتر آگهی‌های نامرتبط | `bot.py` → `BLACKLIST_KEYWORDS` | ✅ بله |
+| اولویت آگهی‌ها | `bot.py` → `BOOST_KEYWORDS` | ✅ بله |
+| رزومه برای AI | GitHub Secret → `USER_RESUME` | ❌ نه |
+
+> 🎁 **نکته:** اگه فقط `USER_SKILLS` رو ست کنی و بقیه رو همین‌جوری بذاری، ربات بازم کار می‌کنه ولی نتایج بهتری می‌ده اگه همه ۴ مورد رو تغییر بدی.
 
 ---
 
@@ -105,7 +253,7 @@
 **نکته مهم:** حتماً یه **Telegraph Token** هم بساز (ویزارد راهنماییت می‌کنه) تا ربات بتونه متن Cover Letter رو به صورت لینک خوانا برات بفرسته.
 
 **می‌خوای از مدل‌های قوی‌تر استفاده کنی؟**
-با [TokenLB](https://tokenlb.net/sign-up?aff=yNLD) می‌تونی از Claude و GPT-5.5 استفاده کنی. توی ویزارد ارائه‌دهنده رو بذار روی **TokenLB** و کلیدت رو وارد کن.
+با [TokenLB](https://tokenlb.net/sign-up?aff=yNLD) می‌تونی از Claude و GPT استفاده کنی. توی ویزارد ارائه‌دهنده رو بذار روی **TokenLB** و کلیدت رو وارد کن.
 
 ---
 
@@ -113,7 +261,7 @@
 
 توی فایل ویزارد یه بخش هست برای **مهارت‌ها و رزومه** شما.
 
-مهارت‌های سئو خودت رو بنویس (مثلاً: `ahrefs, python, technical seo, content optimization`)
+مهارت‌های خودت رو بنویس (مثلاً: `react, typescript, next.js, tailwind`)
 
 AI اینا رو می‌خونه و تو Cover Letter دقیقاً میگه که تو به درد همون کار می‌خوری!
 
@@ -163,6 +311,8 @@ AI اینا رو می‌خونه و تو Cover Letter دقیقاً میگه که
 | Token not set | Secret رو چک کن — اسمش دقیقاً درست باشه |
 | آگهی کم میاد | طبیعیه! ممکنه بعضی روزها آگهی جدید نباشه |
 | Cover Letter نداره | `AI_PROVIDER` + `AI_API_KEY` + `TELEGRAPH_TOKEN` ست شدن؟ |
+| خطای AI | مشکل از سمت سرور ارائه‌دهنده — چند ساعت بعد خودش درست میشه |
+| آگهی‌های نامرتبط میاد | `BOOST_KEYWORDS` و `BLACKLIST_KEYWORDS` رو برای فیلد خودت تنظیم کن |
 
 ---
 
