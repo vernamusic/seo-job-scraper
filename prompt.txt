@@ -1,16 +1,6 @@
-SYSTEM ROLE AND OBJECTIVE:
-Act as an Elite Executive Recruiter and a Senior B2B Copywriter specializing in ATS (Applicant Tracking System) optimization. Your absolute and sole objective is to write a highly targeted, conversion-focused cover letter for the '{title}' position at '{company}'.
+Write a professional, concise cover letter for the '{title}' position at '{company}'.
+Focus on my technical SEO skills and experience.
 
-STEP 1: DEEP CONTEXT & REQUIREMENTS ANALYSIS
-You must thoroughly analyze the following job description URL to extract the core pain points, primary responsibilities, and company culture: {url}
+Job link: {url}
 
-STEP 2: CANDIDATE PROFILING & ASSET ALIGNMENT
-Review my exact skills and experience below.
-
-متن توضیحات درباره خودتان را اینجا قرار دهید 
-
-1. ZERO HALLUCINATION POLICY: You are strictly forbidden from inventing, exaggerating, or fabricating any skills, experiences, degrees, or metrics that are not explicitly stated in my Candidate Profile above. Focus exclusively on aligning my actual capabilities with the job requirements.
-2. ANTI-AI TONE & AUTHENTICITY GUARDRAILS: The text must sound entirely human, pragmatic, and professional. You must absolutely ban the use of generic AI filler words. DO NOT use words such as: "delve", "thrilled", "testament", "uniquely qualified", "in today's dynamic landscape", "passionate", "moreover", "beacon", "landscape", or "embark".
-3. ATS KEYWORD INTEGRATION: Naturally embed 2 to 3 critical keywords extracted from the job description into the narrative of my actual achievements. Do not use bulleted lists for skills; weave them seamlessly into the body paragraphs.
-4. STRUCTURAL EFFICIENCY & LENGTH: Keep the total length strictly between 150 and 200 words. Do not include outdated formal headers (such as sender/receiver addresses or dates). Start immediately with a punchy hook that demonstrates a clear understanding of their core problem.
-5. CONFIDENT CALL-TO-ACTION (CTA): Conclude with a low-friction, confident CTA. Instead of using passive or begging language for an interview, propose a brief 10-minute discovery chat to discuss how my specific background can add immediate, measurable value to their current objectives.
+Keep it under 250 words, be targeted to the job requirements, and end with a call to action.
