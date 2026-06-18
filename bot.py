@@ -103,22 +103,80 @@ _user_skills_env = os.environ.get("USER_SKILLS", "")
 MY_SKILLS = [s.strip().lower() for s in _user_skills_env.split(",") if s.strip()] if _user_skills_env else _DEFAULT_SKILLS
 
 BLACKLIST_KEYWORDS = [
-    "us residents only", "must reside in us", "must be located in us",
-    "must be based in the us", "must be based in us",
+    # location restriction
+    "us residents only",
+    "must reside in us",
+    "must be located in us",
+    "must be based in the us",
     "must be authorized to work in the us",
-    "senior seo", "head of seo", "director of seo", "vp of",
-    "agency", "full stack", "fullstack",
-    "native english speaker only",
-    "10+ years", "8+ years", "7+ years",
+
+    # senior roles
+    "senior frontend",
+    "lead frontend",
+    "principal engineer",
+    "head of engineering",
+    "vp of engineering",
+
+    # unrelated jobs
+    "seo",
+    "search engine optimization",
+    "content writer",
+    "content editor",
+    "digital marketing",
+    "wordpress seo",
+
+    # stacks you don't want
+    "php developer",
+    "wordpress developer",
+
+    # experience too high
+    "10+ years",
+    "8+ years",
+    "7+ years",
 ]
 
+
 BOOST_KEYWORDS = {
-    "technical seo": 20, "python": 18, "wordpress": 15,
-    "junior": 18, "entry level": 15, "associate": 12,
-    "seo specialist": 12, "seo editor": 12, "content editor": 10,
-    "on-page": 10, "part-time": 8, "contract": 5,
-    "remote-first": 8, "async": 5, "flexible": 4,
+    # core frontend stack
+    "react": 25,
+    "react.js": 25,
+    "next.js": 25,
+    "typescript": 22,
+    "javascript": 18,
+
+    # frontend fundamentals
+    "frontend": 20,
+    "front-end": 20,
+    "ui developer": 18,
+    "frontend engineer": 18,
+    "web developer": 15,
+
+    # technologies
+    "tailwind": 12,
+    "redux": 10,
+    "zustand": 10,
+    "graphql": 10,
+    "rest api": 10,
+
+    # frameworks / tooling
+    "vite": 8,
+    "webpack": 8,
+    "storybook": 8,
+
+    # level preference
+    "junior": 18,
+    "entry level": 16,
+    "mid level": 12,
+    "associate": 10,
+
+    # work style
+    "remote": 10,
+    "remote-first": 10,
+    "async": 6,
+    "flexible": 5,
+    "contract": 6,
 }
+
 
 _SKILL_PATTERNS   = {s: re.compile(r"\b" + re.escape(s) + r"\b", re.I) for s in MY_SKILLS}
 _BOOST_PATTERNS   = {kw: re.compile(r"\b" + re.escape(kw) + r"\b", re.I) for kw in BOOST_KEYWORDS}
