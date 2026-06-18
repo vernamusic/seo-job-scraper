@@ -291,9 +291,10 @@ def calculate_fit_score(job: dict) -> tuple:
 
 def fetch_remotive() -> list:
     endpoints = [
-        "https://remotive.com/api/remote-jobs?category=seo&limit=20",
-        "https://remotive.com/api/remote-jobs?search=technical+seo&limit=10",
-        "https://remotive.com/api/remote-jobs?search=seo+content&limit=10",
+        "https://remotive.com/api/remote-jobs?search=react&limit=20",
+        "https://remotive.com/api/remote-jobs?search=next.js&limit=20",
+        "https://remotive.com/api/remote-jobs?search=frontend&limit=20",
+        "https://remotive.com/api/remote-jobs?search=javascript&limit=20",
     ]
     results = []
     for url in endpoints:
@@ -322,9 +323,9 @@ def fetch_remotive() -> list:
 
 def fetch_jobicy() -> list:
     endpoints = [
-        "https://jobicy.com/api/v2/remote-jobs?tag=seo&count=20",
-        "https://jobicy.com/api/v2/remote-jobs?tag=content-marketing&count=15",
-        "https://jobicy.com/api/v2/remote-jobs?tag=wordpress&count=10",
+        "https://jobicy.com/api/v2/remote-jobs?tag=frontend&count=20",
+        "https://jobicy.com/api/v2/remote-jobs?tag=react&count=20",
+        "https://jobicy.com/api/v2/remote-jobs?tag=javascript&count=20",
     ]
     results = []
     for url in endpoints:
@@ -356,7 +357,15 @@ def fetch_jobicy() -> list:
     return results
 
 def fetch_arbeitnow() -> list:
-    SEO_TERMS = ["seo", "search engine optimization", "content editor", "technical seo", "wordpress seo"]
+    FRONTEND_TERMS = [
+        "frontend",
+        "front-end",
+        "react",
+        "next",
+        "javascript",
+        "typescript",
+        "ui developer",
+    ]
     try:
         resp = requests.get("https://arbeitnow.com/api/job-board-api", timeout=15, headers={"User-Agent": "Mozilla/5.0"})
         resp.raise_for_status()
@@ -366,7 +375,7 @@ def fetch_arbeitnow() -> list:
                 continue
             title = (j.get("title") or "").lower()
             desc  = (j.get("description") or "").lower()[:300]
-            if not any(t in title or t in desc for t in SEO_TERMS):
+            if not any(t in title or t in desc for t in FRONTEND_TERMS):
                 continue
             results.append({
                 "id":           f"arbeitnow_{j.get('slug', '')}",
@@ -391,7 +400,7 @@ def fetch_adzuna() -> list:
     if not ADZUNA_APP_ID or not ADZUNA_API_KEY:
         return []
     results = []
-    for q in ["seo", "technical seo", "seo specialist"]:
+    for q in ["react developer", "frontend developer", "next.js developer", "javascript developer"]:
         try:
             resp = requests.get(
                 f"https://api.adzuna.com/v1/api/jobs/us/search/1",
@@ -422,11 +431,18 @@ def fetch_adzuna() -> list:
     return results
 
 def fetch_findwork() -> list:
-    SEO_TERMS = ["seo", "search engine", "content editor", "wordpress", "technical seo", "organic", "keyword"]
+    FRONTEND_TERMS = [
+        "react",
+        "next",
+        "frontend",
+        "javascript",
+        "typescript",
+    ]
+
     try:
         resp = requests.get(
             "https://findwork.dev/api/jobs/",
-            params={"search": "seo", "remote": "true", "order_by": "-date_posted"},
+            params={"search": "react", "remote": "true", "order_by": "-date_posted"},
             headers={"User-Agent": "Mozilla/5.0 (compatible; SEOJobBot/5.0)"},
             timeout=15,
         )
@@ -438,7 +454,7 @@ def fetch_findwork() -> list:
         for j in resp.json().get("results", []):
             title = (j.get("role") or "").lower()
             desc  = (j.get("text") or "").lower()[:500]
-            if not any(t in title or t in desc for t in SEO_TERMS):
+            if not any(t in title or t in desc for t in FRONTEND_TERMS):
                 continue
             results.append({
                 "id":           f"findwork_{j.get('id', '')}",
