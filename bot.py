@@ -94,11 +94,47 @@ JSEARCH_QUERIES = {
 }
 
 _DEFAULT_SKILLS = [
-    "python", "wordpress", "technical seo", "on-page seo",
-    "screaming frog", "ahrefs", "semrush", "google analytics",
-    "google search console", "content", "keyword research",
-    "html", "cms", "link building", "schema",
+    # core language
+    "javascript",
+    "typescript",
+
+    # core frameworks
+    "react",
+    "react.js",
+    "next.js",
+
+    # frontend basics
+    "html",
+    "css",
+
+    # styling
+    "tailwind",
+    "tailwindcss",
+    "sass",
+    "scss",
+
+    # state management
+    "redux",
+    "zustand",
+    "context api",
+
+    # api
+    "rest api",
+    "graphql",
+
+    # tooling
+    "vite",
+    "webpack",
+    "npm",
+    "yarn",
+
+    # ecosystem
+    "node.js",
+    "git",
+    "responsive design",
+    "ui",
 ]
+
 _user_skills_env = os.environ.get("USER_SKILLS", "")
 MY_SKILLS = [s.strip().lower() for s in _user_skills_env.split(",") if s.strip()] if _user_skills_env else _DEFAULT_SKILLS
 
