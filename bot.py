@@ -88,9 +88,9 @@ MIN_FIT_SCORE    = 35
 MAX_JOB_AGE_DAYS = 7
 
 JSEARCH_QUERIES = {
-    1: ["Junior SEO remote", "Technical SEO remote", "SEO Python remote"],
-    2: ["SEO Content Editor remote", "WordPress SEO Specialist remote"],
-    3: ["on-page SEO specialist remote", "SEO copywriter remote"],
+    1: ["Junior Frontend Developer remote", "React Developer remote"],
+    2: ["Next.js Developer remote", "JavaScript Developer remote"],
+    3: ["UI Developer remote", "Frontend Engineer remote"],
 }
 
 _DEFAULT_SKILLS = [
